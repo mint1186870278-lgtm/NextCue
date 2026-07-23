@@ -1,0 +1,47 @@
+---
+description: NextCue project governance — scope, gates, and mandatory pre-dev checklist
+alwaysApply: true
+---
+
+# Project Governance
+
+You are working in the **NextCue canonical workspace** (`origin` → NextCue main repo). The **legacy** remote (ADHD-Coach) is historical reference only. Continue product work **in this workspace** via in-place incremental migration — do not assume a separate greenfield workspace is required.
+
+## Before any feature work or bugfix
+
+1. Read `AGENTS.md` and relevant `.cursor/rules/*.mdc`.
+2. Run `git status`. Confirm branch and uncommitted changes.
+3. Do not overwrite, delete, or reformat the user’s existing changes.
+4. State in-scope and out-of-scope for this task.
+5. Locate entry files, call chain, data flow, and tests.
+6. Run related existing tests, typecheck, and static checks.
+7. Record baseline results before editing.
+8. For bugs: reproduce stably first.
+9. Write root-cause hypothesis with evidence.
+10. List planned file changes and each file’s responsibility.
+11. Flag if the change touches: API contract, DB schema, auth/permissions, cross-module deps, user data migration, external services, or production behavior.
+12. If any item in (11) applies: **stop and wait for user confirmation** before coding.
+
+## Hard bans
+
+- No drive-by multi-file “try fixes” after seeing an error.
+- Do not claim a bug is fixed without reproduction.
+- Do not delete or weaken tests to pass checks.
+- Do not swallow errors with empty catch / fake success fallbacks.
+- Do not use Mock or default “success” data to hide API failure in product paths.
+- Diagnosis / audit: **no** production POST/PUT/PATCH/DELETE; no creating or mutating production data.
+- No unrelated style/format churn; one task per change set.
+- No business feature work in a pure governance/docs task.
+- No installing or upgrading dependencies unless the user explicitly requests it for that task.
+- No git push / merge / force-push / deploy unless the user explicitly requests it.
+
+## High-risk pause list
+
+Stop for confirmation before: schema migrations, auth changes, API contract breaks, data migration, Provider changes, production config, or deleting historical repos/branches.
+
+## Detail docs
+
+- Structure: `docs/architecture/PROJECT_STRUCTURE_ZH.md` / `_EN.md`
+- Debug: `docs/development/DEBUG_WORKFLOW_ZH.md` / `_EN.md`
+- DoD: `docs/development/DEFINITION_OF_DONE_ZH.md` / `_EN.md`
+---

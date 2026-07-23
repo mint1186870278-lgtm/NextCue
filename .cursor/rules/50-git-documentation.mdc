@@ -1,0 +1,34 @@
+---
+description: Git, documentation, ADR, and change-management rules
+alwaysApply: true
+---
+
+# Git and Documentation
+
+## Git
+
+1. No unreviewed large development directly on `main` as the working habit — use a focused branch per task.
+2. One branch → one clear task; one commit → one explainable change.
+3. Never commit secrets, tokens, real user data, or `.env.local`.
+4. `.env.example` may only contain names and safe placeholders.
+5. Schema changes require Alembic migrations; never rewrite already-applied migrations — add a new one.
+6. Large refactors require behavior tests first.
+7. Migrate the Legacy Baseline **in place** by feature batches (see migration phases); do not require a second greenfield app tree first.
+8. Do not delete the legacy ADHD-Coach remote/history or historical versions.
+9. High-risk ops: report goal, impact, and recovery before acting.
+10. No push / merge / delete-branch / force-push / deploy unless the user explicitly asks.
+
+## Documentation
+
+1. Update docs that the change affects in the same task.
+2. Formal ZH/EN pairs must stay structurally aligned and factually identical.
+3. Force rules live in `.cursor/rules` and `AGENTS.md`; long rationale lives under `docs/`.
+4. Use ADRs for lasting decisions (`docs/architecture/ADR_TEMPLATE.md`).
+5. Never embed machine-specific absolute paths in docs or rules.
+
+## Templates
+
+- Change plan: `docs/development/CHANGE_PLAN_TEMPLATE.md`
+- Bug report: `docs/development/BUG_REPORT_TEMPLATE.md`
+- DoD: `docs/development/DEFINITION_OF_DONE_ZH.md` / `_EN.md`
+---

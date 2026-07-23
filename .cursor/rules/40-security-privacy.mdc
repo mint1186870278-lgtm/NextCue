@@ -1,0 +1,37 @@
+---
+description: Security and privacy — Clerk JWT, ownership, ADHD/non-clinical, logging red lines
+alwaysApply: true
+---
+
+# Security and Privacy
+
+NextCue handles ADHD-related, psychological, task, and behavior data. Treat leaks as **Critical**.
+
+## Auth and ownership
+
+1. Backend must verify Clerk JWT on protected routes.
+2. `user_id` for authorization comes only from the verified token.
+3. Never authorize using client-supplied `user_id` alone.
+4. Every task (and similar resource) query/mutation must check ownership.
+5. Frontend must not store sensitive secrets (no long-lived raw tokens in localStorage as a design).
+
+## Product and clinical boundaries
+
+1. Do not describe NextCue as medical diagnosis or treatment.
+2. Do not make clinical judgments from Onboarding answers.
+3. Onboarding answers used for personalization must be explicitly documented; unused answers must not drive hidden “diagnosis”.
+
+## Data handling
+
+1. Do not log full chat transcripts, tokens, or sensitive PII.
+2. AI prompts send the minimum data needed for the feature.
+3. Third-party AI Providers must not receive unrelated identity fields.
+4. Never use real user data as development Mock.
+5. Tests use separate test accounts and test databases.
+6. Users must be able to delete account and personal data (implement when product phase reaches it; design must not block it).
+7. Production writes only through official business APIs.
+
+## Diagnosis / audit ban
+
+Do not probe other users’ IDs to “prove” a leak. Document missing auth gates without expanding blast radius.
+---

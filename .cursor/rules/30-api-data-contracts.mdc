@@ -1,0 +1,38 @@
+---
+description: API and data contract rules — OpenAPI source of truth, IDs, drafts, no double-write
+globs: "**/api/**","**/schemas/**","**/types/**","**/*schema*","**/openapi*"
+alwaysApply: false
+---
+
+# API and Data Contracts
+
+## Source of truth
+
+- Backend OpenAPI is the contract input.
+- Frontend TypeScript client is **generated** from OpenAPI (Phase 0+), not hand-duplicated in components.
+- Contract changes require doc + client regen + tests. Silent field drift is High severity.
+
+## Identity and writes
+
+1. Server-assigned ID is authoritative after create; client must persist the returned ID.
+2. Client temporary IDs only for unsubmitted drafts.
+3. Edit must use update (PUT/PATCH), never create-as-edit.
+4. One user confirmation of AI tasks → **one** write path (no `sync_tasks` + `batch` double write).
+5. AI output = Draft only until confirm.
+
+## Auth on every protected route
+
+- Verify Clerk JWT on the server.
+- Derive `user_id` from the token — never from trusted client body/query for authz.
+- Enforce resource ownership on read/update/delete.
+
+## Validation
+
+- Validate request and response shapes at the boundary (Pydantic / generated types / zod or equivalent).
+- Do not use `any` to paper over mismatches.
+- Product UI must surface real failures; no silent Mock chart/score on API error.
+
+## Errors
+
+Use a consistent error envelope (define in Phase 0). Logs must not include tokens, full chat dumps, or sensitive PII.
+---

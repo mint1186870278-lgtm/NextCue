@@ -1,0 +1,37 @@
+---
+description: Debug workflow and post-change validation gates
+alwaysApply: true
+---
+
+# Debug and Validation
+
+Follow `docs/development/DEBUG_WORKFLOW_ZH.md` (EN twin). Summary:
+
+## Debug steps (mandatory for bugs)
+
+1. **Define** — expected vs actual, repro, scope, environment.
+2. **Reproduce** — minimal stable steps; save errors/status/logs; no production test data.
+3. **Trace** — UI → state → API Client → HTTP → Router → Service → Repository → DB/AI → response → parse → UI.
+4. **Isolate** — one layer; change one variable at a time.
+5. **Fix** — smallest fix inside architecture boundaries; no second parallel hack; no fake-success fallback; no UI patches for DB bugs.
+6. **Regression test** — add at least one test that would catch the same class of bug.
+7. **Verify** — bug fixed; adjacent flows OK; typecheck/tests pass; error states still visible; refresh/re-login OK.
+8. **Document** — root cause, change, tests, residual risk, follow-up refactor need.
+
+## After every change
+
+1. Review full git diff; no unrelated files.
+2. Run targeted tests.
+3. Run project typecheck, lint, and tests for touched apps.
+4. Run build if build config changed.
+5. API changes: success, failure, unauthenticated, forbidden.
+6. Writes: still correct after refresh.
+7. Task status: pending/active/paused/completed/resume/refresh/re-read.
+8. AI: valid structured output, invalid JSON, empty, timeout, provider failure, user cancel, edit-then-confirm.
+9. Update affected docs.
+10. Report **real** commands and results — never “should be fine”.
+
+## Coupling Audit
+
+Before large refactors, record evidence per `docs/architecture/COUPLING_AUDIT_ZH.md`. Line count is a **review trigger only**, not proof of high coupling. Do not auto-split at 300 lines.
+---

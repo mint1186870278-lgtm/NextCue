@@ -1,0 +1,49 @@
+---
+description: Architecture boundaries — frontend/backend layers and dependency direction
+globs: apps/**/*
+alwaysApply: false
+---
+
+# Architecture Boundaries
+
+## Dependency direction (required)
+
+Frontend: `Page → Feature → Hook/UseCase → API Client → Backend`  
+Backend: `Router → Service → Repository → Database`
+
+Forbidden reverse deps: Repository→Router; Service importing HTTP Request/Response; shared UI importing a business feature; API Client importing React pages; backend modeling by frontend page names.
+
+## Frontend
+
+1. Pages/UI must not concatenate backend URLs.
+2. All network I/O goes through the unified API Client (`apps/web` lib/api).
+3. UI must not own DB-field mapping logic; map at API Client / feature boundary with typed transforms.
+4. Page = assembly; feature = business; `components/ui` = presentation only.
+5. One authority for each business state — no duplicate sources of truth across components.
+6. Server payloads must pass schema validation or an explicit typed mapper before use.
+7. Do not use `any` to hide contract mismatch.
+8. Do not hardcode Mock data that looks like production success.
+9. Mocks must be labeled and limited to test/demo environments.
+10. Server ID is the only resource authority; client temp IDs are for unsubmitted drafts only.
+11. Files ~300+ lines trigger Coupling Review — size alone does not force a split.
+12. Split by responsibility, state ownership, and reason for change — not line count.
+
+## Backend
+
+1. Router: parse request, auth, call Service, return response only.
+2. No complex business rules or DB queries in Router.
+3. Service must not depend on React, HTTP response objects, or UI concepts.
+4. Repository: persistence only — no product decisions.
+5. Pydantic schemas are the API boundary; do not return unconstrained ORM objects.
+6. Protected resources: `user_id` only from verified JWT (Clerk).
+7. Never trust query/body client-supplied `user_id` for authorization.
+8. Task read/update/delete must enforce ownership.
+9. AI must not create official tasks directly.
+10. AI returns Task Draft → user confirms → single write to DB.
+11. Validate AI structured output; never trust raw model JSON.
+12. External AI via Provider/Adapter only — no vendor lock-in in domain logic.
+
+## Confirmed stack (docs only until Phase 0)
+
+Monorepo; `apps/web` Next.js; `apps/api` FastAPI; PostgreSQL; SQLAlchemy 2.x; Alembic; Clerk + server JWT verify; AI Provider Adapter (concrete provider deferred).
+---
