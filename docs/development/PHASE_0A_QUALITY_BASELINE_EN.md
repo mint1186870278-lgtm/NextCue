@@ -1,9 +1,9 @@
 # Phase 0A — Frontend Quality Baseline
 
-**Language:** English  
-**Chinese counterpart:** [PHASE_0A_QUALITY_BASELINE_ZH.md](./PHASE_0A_QUALITY_BASELINE_ZH.md)  
-**Branch:** `chore/phase-0a-frontend-quality-baseline`  
-**Starting HEAD:** `edcdd6b25d22c93dd08a7259bbe5c76ecc763b97`  
+**Language:** English
+**Chinese counterpart:** [PHASE_0A_QUALITY_BASELINE_ZH.md](./PHASE_0A_QUALITY_BASELINE_ZH.md)
+**Branch:** `chore/phase-0a-frontend-quality-baseline`
+**Starting HEAD:** `edcdd6b25d22c93dd08a7259bbe5c76ecc763b97`
 **Nature:** Engineering gates only; **no** product-logic changes to Tasks / Chat / Focus / Review / Onboarding.
 
 ---
@@ -46,7 +46,7 @@ Version basis: Next `14.2.35`, ESLint `8.57.1`, `eslint-config-next` `14.2.35`, 
 
 - `typecheck` / `lint` / `check` scripts
 - GitHub Actions `.github/workflows/ci.yml`: PR + push to `main`; Node 20; `npm ci`; `npm run check`; `permissions: contents: read`; no deploy/PAT/auto-merge
-- CI uses documented non-production Clerk placeholder env values (not real secrets) so builds work without `.env.local`
+- CI uses **format-valid**, non-production mock Clerk keys (base64 mock host/secret payloads; **not** values from `.env.local`) so compile/prerender works without `.env.local`
 - Updated README, AGENTS, DoD / Debug ZH+EN docs
 
 ---
@@ -61,7 +61,14 @@ Version basis: Next `14.2.35`, ESLint `8.57.1`, `eslint-config-next` `14.2.35`, 
 | `npm run build` | 0 |
 | `npm run check` | 0 |
 
-Clean-environment verification is recorded in the task final report (worktree/clone without `.env.local`).
+### Clean environment (no `.env.local`)
+
+| Step | Exit |
+|------|------|
+| `npm ci` | 0 |
+| `npm run check` (format-valid mock Clerk env) | 0 |
+
+Note: literal `pk_test_placeholder_*` is rejected by `@clerk/nextjs`; format-valid mock keys pass clean-env build.
 
 ---
 

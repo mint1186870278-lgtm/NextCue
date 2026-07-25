@@ -29,8 +29,9 @@ jobs:
 
       - name: Run quality check
         env:
-          # Non-production placeholders only — values are not secrets.
-          # Required so Next.js + Clerk can compile without a local .env.local.
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_placeholder_for_ci_build_only
-          CLERK_SECRET_KEY: sk_test_placeholder_for_ci_build_only
+          # Format-valid, non-production Clerk placeholders for compile/prerender only.
+          # Encoded mock host/secret payloads — NOT real Clerk dashboard keys and NOT from .env.local.
+          # Real sign-in is not exercised in CI.
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_bW9jay1jaS5uZXh0Y3VlLmNsZXJrLmFjY291bnRzLmRldiQ=
+          CLERK_SECRET_KEY: sk_test_bW9jay1jaS1zZWNyZXQtbm90LWZvci1wcm9kdWN0aW9uJA==
         run: npm run check

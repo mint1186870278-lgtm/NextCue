@@ -1,9 +1,9 @@
 # Phase 0A — 前端质量基线
 
-**文档语言：** 中文  
-**对应英文：** [PHASE_0A_QUALITY_BASELINE_EN.md](./PHASE_0A_QUALITY_BASELINE_EN.md)  
-**分支：** `chore/phase-0a-frontend-quality-baseline`  
-**起始 HEAD：** `edcdd6b25d22c93dd08a7259bbe5c76ecc763b97`  
+**文档语言：** 中文
+**对应英文：** [PHASE_0A_QUALITY_BASELINE_EN.md](./PHASE_0A_QUALITY_BASELINE_EN.md)
+**分支：** `chore/phase-0a-frontend-quality-baseline`
+**起始 HEAD：** `edcdd6b25d22c93dd08a7259bbe5c76ecc763b97`
 **性质：** 工程门禁建立；**未修改** Tasks / Chat / Focus / Review / Onboarding 产品逻辑。
 
 ---
@@ -46,7 +46,7 @@
 
 - `typecheck` / `lint` / `check` scripts
 - GitHub Actions `.github/workflows/ci.yml`：`pull_request` + `push`→`main`；Node 20；`npm ci`；`npm run check`；`permissions: contents: read`；无 deploy/PAT/auto-merge
-- CI 使用文档化非生产 placeholder Clerk 环境变量名值（非真实 secret）以便无 `.env.local` 编译
+- CI 使用**格式合法**的非生产 mock Clerk key（base64 编码的 mock host/secret；**不是** `.env.local` 真实值）以便无 `.env.local` 编译与预渲染
 - 更新 README、AGENTS、DoD / Debug 中英文档
 
 ---
@@ -61,7 +61,14 @@
 | `npm run build` | 0 |
 | `npm run check` | 0 |
 
-干净环境验证结果见同任务最终报告（无 `.env.local` 的 worktree / clone）。
+### 干净环境（无 `.env.local`）
+
+| 步骤 | Exit |
+|------|------|
+| `npm ci` | 0 |
+| `npm run check`（格式合法 mock Clerk env） | 0 |
+
+说明：字面量 `pk_test_placeholder_*` 会被 `@clerk/nextjs` 拒绝；改用格式合法 mock key 后干净环境通过。
 
 ---
 
