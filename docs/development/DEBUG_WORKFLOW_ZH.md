@@ -84,8 +84,10 @@
 
 - 原 Bug 已修复
 - 相邻流程未损坏
-- 类型检查通过
-- 相关测试通过
+- `npm run typecheck` 通过
+- `npm run lint` 通过
+- `npm test` 通过
+- 涉及构建配置时 `npm run build` 通过；完整门禁使用 `npm run check`
 - 错误状态仍能正确展示
 - 刷新与重新登录后状态正确
 

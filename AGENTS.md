@@ -41,8 +41,8 @@ This file is the mandatory entry point for any coding agent working in this repo
 | E2E | Playwright |
 | Python lint/format | Ruff |
 | API contract | Backend OpenAPI → generate TypeScript client |
-| CI | Web checks, API checks, contract checks, build checks |
-| Local `check` command | Planned; not implemented in governance-only phase |
+| CI | GitHub Actions `CI` workflow runs `npm run check` on PR and `main` |
+| Local `check` command | `npm run check` → typecheck → lint → test → build |
 
 ### Still open
 

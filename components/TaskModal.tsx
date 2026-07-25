@@ -7,6 +7,19 @@ import { Todo } from "@/lib/types";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+const FOCUS_TIPS = [
+  "只要开始做 2 分钟就好。",
+  "深呼吸，屏蔽手机通知。",
+  "完成比完美更重要。",
+  "把大任务拆解成小步骤。",
+  "相信自己，你可以做到的。",
+  "保持专注，一次只做一件事。",
+  "休息也是为了更好地出发。",
+  "不要让焦虑阻碍你的行动。",
+  "专注于当下的每一刻。",
+  "每一个小小的进步都值得庆祝。"
+];
+
 interface TaskModalProps {
   todo: Todo | null;
   isOpen: boolean;
@@ -24,20 +37,6 @@ export default function TaskModal({ todo, isOpen, onClose, onComplete, onPause, 
   const [initialTime, setInitialTime] = useState<number>(0);
   const [isActive, setIsActive] = useState(false);
   
-  // Tips Array
-  const focusTips = [
-    "只要开始做 2 分钟就好。",
-    "深呼吸，屏蔽手机通知。",
-    "完成比完美更重要。",
-    "把大任务拆解成小步骤。",
-    "相信自己，你可以做到的。",
-    "保持专注，一次只做一件事。",
-    "休息也是为了更好地出发。",
-    "不要让焦虑阻碍你的行动。",
-    "专注于当下的每一刻。",
-    "每一个小小的进步都值得庆祝。"
-  ];
-
   const [currentTips, setCurrentTips] = useState<string[]>([]);
   const [isBreakingDown, setIsBreakingDown] = useState(false);
   const [breakdownError, setBreakdownError] = useState<string | null>(null);
@@ -143,7 +142,7 @@ export default function TaskModal({ todo, isOpen, onClose, onComplete, onPause, 
       setIsActive(false);
 
       // Randomly select 2 unique tips
-      const shuffled = [...focusTips].sort(() => 0.5 - Math.random());
+      const shuffled = [...FOCUS_TIPS].sort(() => 0.5 - Math.random());
       setCurrentTips(shuffled.slice(0, 2));
 
       // 自动拆解：仅对手动添加且没有预拆分步骤的任务进行拆解
@@ -152,6 +151,9 @@ export default function TaskModal({ todo, isOpen, onClose, onComplete, onPause, 
         autoBreakdownTask();
       }
     }
+    // Intentionally omit autoBreakdownTask: it is recreated each render; adding it
+    // would re-trigger network breakdown when the modal is already open.
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- preserve open/todo/userId-only trigger
   }, [isOpen, todo, userId]);
 
   const handleAddTime = () => {

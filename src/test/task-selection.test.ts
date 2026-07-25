@@ -250,8 +250,8 @@ describe('Task Selection Flow', () => {
 
     it('should transform tasks to backend format correctly', () => {
       const selectedTasks: PendingTask[] = [
-        { title: "写报告", duration: "60m", importance: "high", period: "morning", note: "准备数据" },
-        { title: "跑步", duration: "30m", importance: "routine", period: "evening" },
+        { title: "写报告", duration: "60m", importance: "high", period: "morning", note: "准备数据", selected: true },
+        { title: "跑步", duration: "30m", importance: "routine", period: "evening", selected: true },
       ]
 
       // Transform to backend format (syncTasksToBackend)

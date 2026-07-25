@@ -8,13 +8,14 @@ NextCue is a Next.js web application that helps users manage tasks, stay focused
 - **Auth:** Clerk
 - **UI:** Tailwind CSS, Chart.js
 - **Tests:** Vitest + React Testing Library
+- **Quality:** TypeScript, ESLint (`next/core-web-vitals`), GitHub Actions CI
 
 ## Getting started
 
-1. Install dependencies:
+1. Install dependencies (prefer lockfile install):
 
    ```bash
-   npm install
+   npm ci
    ```
 
 2. Copy environment template and fill in local values (never commit secrets):
@@ -23,23 +24,32 @@ NextCue is a Next.js web application that helps users manage tasks, stay focused
    cp .env.example .env.local
    ```
 
-3. Run the dev server:
+3. Run the full local quality gate (recommended before opening a PR):
+
+   ```bash
+   npm run check
+   ```
+
+4. Start the dev server:
 
    ```bash
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000).
+5. Open [http://localhost:3000](http://localhost:3000).
 
 ## Scripts
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
+| `npm ci` | Clean install from `package-lock.json` |
+| `npm run check` | typecheck → lint → test → build (fails fast) |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run lint` | ESLint with `--max-warnings=0` |
+| `npm test` | Vitest |
 | `npm run build` | Production build |
+| `npm run dev` | Development server |
 | `npm start` | Start production server |
-| `npm test` | Run Vitest |
-| `npm run lint` | Next.js lint |
 
 ## Repository
 
