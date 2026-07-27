@@ -18,9 +18,10 @@
 
 ## 质量门禁
 
-- [ ] 类型检查通过
-- [ ] 相关 lint 通过（前端 ESLint 等；后端 Ruff；Python 类型检查工具待确认后纳入）
-- [ ] 相关测试通过（Vitest/RTL、pytest；涉及端到端时 Playwright）
+- [ ] `npm run typecheck` 通过（`tsc --noEmit`）
+- [ ] `npm run lint` 通过（ESLint `next/core-web-vitals`，`--max-warnings=0`；后端 Ruff / Python 类型检查待后续阶段纳入）
+- [ ] `npm test` 通过（Vitest/RTL；涉及端到端时 Playwright；后端 pytest 待后续阶段）
+- [ ] 提交前或 PR 前运行 `npm run check`（依次 typecheck → lint → test → build）并通过
 - [ ] 新 Bug 有回归测试
 - [ ] 未删除/弱化测试以「通过」检查
 - [ ] 未使用 `any` 掩盖契约问题

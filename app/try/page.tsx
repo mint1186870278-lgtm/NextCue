@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { useAuth, useSignIn } from "@clerk/nextjs";
 import { Apple, X } from "lucide-react";
@@ -31,7 +32,7 @@ export default function TryPage() {
               <div className="absolute inset-0 rounded-[32px] border-[8px] border-[#1a1a1a] bg-transparent shadow-2xl ring-1 ring-white/10 z-20 pointer-events-none" />
               <div className="absolute inset-[8px] rounded-[24px] overflow-hidden bg-white z-10">
                 <div className="relative w-full h-full bg-black">
-                  <img src="/demo.png" alt="App" className="absolute inset-0 w-full h-full object-cover" />
+                  <Image src="/demo.png" alt="App" fill className="object-cover" sizes="180px" />
                 </div>
                 <div className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-white rounded-full z-50 mix-blend-difference" />
               </div>

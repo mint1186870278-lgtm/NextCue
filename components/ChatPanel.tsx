@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { useAuth } from "@clerk/nextjs";
 import { Send, Sparkles, Paperclip, X, FileText as FileIcon, ImageIcon, Sun, Moon, Sunset, Clock } from "lucide-react";
 import { Message, Todo } from "@/lib/types";
@@ -636,7 +637,7 @@ export default function ChatPanel({ onAddTodo, onAddTodos, todos, userId, isSign
         }}
         onClick={handleHeaderClick}
       >
-        <img src="/logo2.png" alt="Focus AI" style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', flexShrink: 0, display: 'block' }} />
+        <Image src="/logo2.png" alt="Focus AI" width={48} height={48} style={{ borderRadius: '50%', objectFit: 'cover', flexShrink: 0, display: 'block' }} />
         <h2 style={{ fontSize: "clamp(20px, 6vw, 32px)", fontWeight: 700, letterSpacing: "-0.5px", color: "var(--color-text-main)", lineHeight: 1, margin: 0, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>NextCue 教练</h2>
       </header>
 

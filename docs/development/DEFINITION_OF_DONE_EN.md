@@ -18,9 +18,10 @@ A task may be marked done only when **all** of the following hold:
 
 ## Quality gates
 
-- [ ] Typecheck passes
-- [ ] Relevant lint passes (frontend ESLint, etc.; backend Ruff; Python typechecker TBD then required)
-- [ ] Related tests pass (Vitest/RTL, pytest; Playwright when E2E is in scope)
+- [ ] `npm run typecheck` passes (`tsc --noEmit`)
+- [ ] `npm run lint` passes (ESLint `next/core-web-vitals`, `--max-warnings=0`; backend Ruff / Python typechecker TBD for later phases)
+- [ ] `npm test` passes (Vitest/RTL; Playwright when E2E is in scope; backend pytest in later phases)
+- [ ] `npm run check` run before commit/PR (typecheck → lint → test → build) and passes
 - [ ] New bugs have a regression test
 - [ ] Tests were not deleted/weakened to “pass”
 - [ ] `any` was not used to hide contract problems

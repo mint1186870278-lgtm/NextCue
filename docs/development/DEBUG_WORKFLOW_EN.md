@@ -84,8 +84,10 @@ Confirm all of:
 
 - Original bug fixed
 - Adjacent flows intact
-- Typecheck passes
-- Related tests pass
+- `npm run typecheck` passes
+- `npm run lint` passes
+- `npm test` passes
+- `npm run build` when build config changed; use `npm run check` for the full gate
 - Error states still surface correctly
 - State correct after refresh and re-login
 
